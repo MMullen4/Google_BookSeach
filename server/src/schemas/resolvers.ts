@@ -1,6 +1,7 @@
 
-import { User } from "../models";
+import User from "../models/User";
 import { signToken, AuthenticationError } from "../services/auth";
+// import { AuthenticationError } from 'apollo/server/express';
 
 // define interface for resolver context & book data
 interface Context {
@@ -28,7 +29,7 @@ interface UserDocument {
   isCorrectPassword: (password: string) => Promise<boolean>;
 }
 
-const resolvers = {
+export const resolvers = {
     Query: {
         me: async (_parent: undefined, _args: undefined, context: Context) => {
             if (context.user) {
