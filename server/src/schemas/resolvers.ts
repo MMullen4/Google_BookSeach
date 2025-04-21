@@ -1,7 +1,7 @@
 
 import User from "../models/User";
-import { signToken, AuthenticationError } from "../services/auth";
-// import { AuthenticationError } from 'apollo/server/express';
+import { signToken, AuthenticationError } from "../services/auth2";
+console.log(AuthenticationError);
 
 // define interface for resolver context & book data
 interface Context {
@@ -49,7 +49,7 @@ export const resolvers = {
             }: { username: string; email: string; password: string }
         ) => {
             const user = await User.create({ username, email, password });
-            const token = signToken(user);
+            const token = signToken(user.username, user.email, user.password);
             return { token, user };
         },
         login: async (
@@ -68,7 +68,7 @@ export const resolvers = {
                 throw new AuthenticationError("Incorrect credentials");
             }
 
-            const token = signToken(user);
+            const token = signToken(user.username, user.email, user.password);
 
             return { token, user };
         },
@@ -100,9 +100,9 @@ export const resolvers = {
                     { new: true }
                 );
             }
-            throw AuthenticationError("You need to be logged in!");
+            throw new AuthenticationError("You need to be logged in!");
         },
     },
 };
 
-export resolvers;
+export default resolvers;
