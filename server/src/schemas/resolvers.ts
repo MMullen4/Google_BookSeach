@@ -1,5 +1,5 @@
 
-import User from "../models/User";
+import User from "../models/User.js";
 import { signToken, AuthenticationError } from "../services/auth2.js";
 console.log(AuthenticationError);
 
