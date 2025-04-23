@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import { gql } from 'graphql-tag';
 
 const typeDefs = gql` 
 type User {
@@ -43,33 +43,5 @@ type Mutation {
     removeBook(bookId: String!): User
 }`;
 
-// define TS interfaces to match GQL types
-interface Book {
-  bookId: string;
-  authors: string[];
-  description: string;
-  title: string;
-  image?: string;
-  link?: string;
-}
-interface User {
-  _id: string;
-  username: string;
-  email: string;
-  bookCount: number;
-  savedBooks: Book[];
-}
-interface Auth {
-  token: string;
-  user: User;
-}
-interface BookInput {
-  bookId: string;
-  authors: string[];
-  description: string;
-  title: string;
-  image?: string;
-  link?: string;
-}
 
-export { typeDefs, Book, User, Auth, BookInput };
+export default typeDefs;

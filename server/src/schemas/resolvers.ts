@@ -1,6 +1,6 @@
 
 import User from "../models/User";
-import { signToken, AuthenticationError } from "../services/auth2";
+import { signToken, AuthenticationError } from "../services/auth2.js";
 console.log(AuthenticationError);
 
 // define interface for resolver context & book data

@@ -67,4 +67,3 @@ const User = model<UserDocument>('User', userSchema);
 
 export default User;
 
-// module.exports = User;
