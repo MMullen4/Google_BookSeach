@@ -8,30 +8,22 @@ import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  // const [saveBook] = useMutation(SAVE_BOOK);
+  console.log("Query response:", data);
   const [deleteBook] = useMutation(REMOVE_BOOK);
 
   const userData = data?.me || {};
+  console.log("userData", userData); // data?.me is the same as data && data.me
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId: string) => {
+    console.log('trying to delete bookId:', bookId);
     try {
-      const { data } = await deleteBook({
+      await deleteBook({
         variables: { bookId },
-        update: (cache) => {
-          const data = cache.readQuery({ query: QUERY_ME }) as any;
-          const userDataCache = data.me;
-          const updatedBooks = userDataCache.savedBooks.filter(
-            (book: any) => book.bookId !== bookId
-          );
-          cache.writeQuery({
-            query: QUERY_ME,
-            data: { me: { ...userDataCache, savedBooks: updatedBooks } },
-          });
-        },
+     
       });
+      console.log(bookId, "deleted")
       // remove book ID from localstorage
-
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
@@ -64,9 +56,9 @@ const SavedBooks = () => {
         </h2>
         <Row>
           {userData.savedBooks.map((book: any) => {
+            console.log('book data', book);
             return (
-              <Col md="4">
-                <Card key={book.bookId} border="dark">
+              <Col md="4" key={book.bookId}> <Card border="dark">
                   {book.image ? (
                     <Card.Img
                       src={book.image}
