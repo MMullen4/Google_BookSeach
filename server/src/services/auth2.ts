@@ -15,6 +15,7 @@ export const authenticateToken = ({ req }: { req: Request }) => {
   if (req.headers.authorization) {
     token = token.split(" ").pop().trim();
   }
+  console.log(token);
   if (!token) {
     return req;
   }
@@ -22,6 +23,7 @@ export const authenticateToken = ({ req }: { req: Request }) => {
     const { data }: any = jwt.verify(token, process.env.JWT_SECRET_KEY || "", {
       maxAge: "2hr",
     });
+    console.log(data);
     req.user = data as JwtPayload;
   } catch (err) {
     console.log("Invalid token");

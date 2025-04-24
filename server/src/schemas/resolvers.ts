@@ -6,7 +6,9 @@ console.log(AuthenticationError);
 // define interface for resolver context & book data
 interface Context {
   user?: {
-    _id: string;
+      _id: string;
+      username: string;
+      email: string;
   };
 }
 
@@ -49,7 +51,7 @@ export const resolvers = {
             }: { username: string; email: string; password: string }
         ) => {
             const user = await User.create({ username, email, password });
-            const token = signToken(user.username, user.email, user.password);
+            const token = signToken(user.username, user.email, user._id);
             return { token, user };
         },
         login: async (
@@ -68,7 +70,7 @@ export const resolvers = {
                 throw new AuthenticationError("Incorrect credentials");
             }
 
-            const token = signToken(user.username, user.email, user.password);
+            const token = signToken(user.username, user.email, user._id);
 
             return { token, user };
         },
@@ -78,8 +80,10 @@ export const resolvers = {
             { bookData }: { bookData: BookData },
             context: Context
         ) => {
+            console.log(context.user)
             if (context.user) {
-                return User.findOneAndUpdate(
+
+                return User.findByIdAndUpdate(
                     { _id: context.user._id },
                     { $addToSet: { savedBooks: bookData } },
                     { new: true, runValidators: true }

@@ -5,8 +5,7 @@ import bcrypt from 'bcrypt';
 import bookSchema from './Book.js';
 import type { BookDocument } from './Book.js';
 
-export interface UserDocument extends Document {
-  id: string;
+export interface UserDocument extends Document {  
   username: string;
   email: string;
   password: string;
