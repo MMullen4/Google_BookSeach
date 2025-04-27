@@ -32,11 +32,12 @@ const startApolloServer = async () => {
     })
   );
 
+  // if we're in prod, serve client/build as static assest
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/dist")));
+    app.use(express.static(path.join(__dirname, "../client/dist"))); // ../client/build
 
     app.get("*", (_req: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));// ..client/build/index.html
     });
   }
 

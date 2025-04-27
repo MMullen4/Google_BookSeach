@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "cd server && npm start",
     "dev:server": "nodemon --config server/nodemon.json",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i",
@@ -20,7 +20,8 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "eslint": "^8.44.0",
-    "jest": "29.7.0"
+    "jest": "29.7.0",
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=18.0.0",
