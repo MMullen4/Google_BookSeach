@@ -1,6 +1,6 @@
 import { gql } from 'graphql-tag';
 
-const typeDefs = gql` 
+const typedefs = gql` 
 type User {
     _id: ID
     username: String
@@ -44,4 +44,4 @@ type Mutation {
 }`;
 
 
-export default typeDefs;
+export default typedefs;

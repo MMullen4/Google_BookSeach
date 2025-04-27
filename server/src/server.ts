@@ -6,12 +6,12 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { authenticateToken } from "./services/auth2.js"
 // Import the two parts of a GraphQL schema
-import { typeDefs, resolvers } from "./schemas/index.js";
+import { typedefs, resolvers } from "./schemas/index.js";
 import db from "./config/connection.js";
 
 const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: typedefs,
   resolvers,
 });
 
@@ -37,7 +37,7 @@ const startApolloServer = async () => {
     app.use(express.static(path.join(__dirname, "../client/dist"))); // ../client/build
 
     app.get("*", (_req: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, "../client/dist/index.html"));// ..client/build/index.html
+      res.sendFile(path.join(__dirname, "../client/dist/index.html"));// ..client/build/index.
     });
   }
 
