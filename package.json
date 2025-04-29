@@ -12,7 +12,7 @@
     "render-build": "npm run postinstall && npm run build",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
-    "postinstall": "cd server && npm install && cd ../client && npm install",
+    "postinstall": "cd server && cd server && npm run build && cd ../client && npm run build",
     "test": "jest"
   },
   "keywords": [],
