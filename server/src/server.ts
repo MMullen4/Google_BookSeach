@@ -6,12 +6,12 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { authenticateToken } from "./services/auth2.js"
 // Import the two parts of a GraphQL schema
-import { typedefs, resolvers } from "./schemas/index.js";
+import { typeDefs, resolvers } from "./schemas/index.js";
 import db from "./config/connection.js";
 
 const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
-  typeDefs: typedefs,
+  typeDefs,
   resolvers,
 });
 
